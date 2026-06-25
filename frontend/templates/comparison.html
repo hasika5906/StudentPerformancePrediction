@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Student Comparison Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <h2>
+        🎓 Student Analytics
+    </h2>
+
+    <div>
+
+        <a href="/">Home</a>
+
+        <a href="/comparison">
+            Comparison Dashboard
+        </a>
+
+        <a href="/about">
+            About Project
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+
+        <h1>
+            📈 Student Comparison Dashboard
+        </h1>
+
+        <p>
+            Compare Performance Against Average Students,
+            Top Performers and Similar Students
+        </p>
+
+    </div>
+
+    {% if no_data %}
+
+    <div class="card">
+
+        <h2>
+            No Student Data Found
+        </h2>
+
+        <p>
+            Please predict a student's performance first.
+        </p>
+
+        <a href="/">
+            <button>
+                🏠 Back To Home
+            </button>
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <!-- STUDENT VS AVERAGE -->
+
+    <div class="card">
+
+        <h2>
+            📊 Student vs Average Student
+        </h2>
+
+        <div class="compare-card">
+
+            <div class="compare-box">
+
+                <h3>
+                    Your Attendance
+                </h3>
+
+                <p>
+                    {{ student_attendance }}%
+                </p>
+
+            </div>
+
+            <div class="compare-box">
+
+                <h3>
+                    Average Attendance
+                </h3>
+
+                <p>
+                    {{ avg_attendance }}%
+                </p>
+
+            </div>
+
+            <div class="compare-box">
+
+                <h3>
+                    Your Study Hours
+                </h3>
+
+                <p>
+                    {{ student_study }}
+                </p>
+
+            </div>
+
+            <div class="compare-box">
+
+                <h3>
+                    Average Study Hours
+                </h3>
+
+                <p>
+                    {{ avg_study }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TOP PERFORMERS -->
+
+    <div class="card">
+
+        <h2>
+            🏆 Compare With Top Performers
+        </h2>
+
+        <div class="compare-card">
+
+            <div class="compare-box">
+
+                <h3>
+                    Top Performer Attendance
+                </h3>
+
+                <p>
+                    {{ top_attendance }}%
+                </p>
+
+            </div>
+
+            <div class="compare-box">
+
+                <h3>
+                    Top Performer Study Hours
+                </h3>
+
+                <p>
+                    {{ top_study }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- IMPROVEMENT POTENTIAL -->
+
+    <div class="card">
+
+        <h2>
+            🚀 Improvement Potential
+        </h2>
+
+        <h1 class="grade">
+
+            {{ improvement_score }}
+
+        </h1>
+
+        <h3>
+            Marks Potential Remaining
+        </h3>
+
+        <p>
+            Lower value means you're already performing
+            close to your maximum potential.
+        </p>
+
+    </div>
+
+    <!-- ROADMAP -->
+
+    <div class="card">
+
+        <h2>
+            🎯 Priority Improvement Roadmap
+        </h2>
+
+        <ol>
+
+            <li>
+                Improve Final Examination Score
+            </li>
+
+            <li>
+                Improve Project Performance
+            </li>
+
+            <li>
+                Improve Midterm Performance
+            </li>
+
+            <li>
+                Improve Assignment Quality
+            </li>
+
+            <li>
+                Increase Attendance
+            </li>
+
+        </ol>
+
+    </div>
+
+    <!-- SIMILAR STUDENTS -->
+
+    <div class="card">
+
+        <h2>
+            👥 Similar Students Analysis
+        </h2>
+
+        <table class="insight-table">
+
+            <tr>
+
+                <th>
+                    Attendance
+                </th>
+
+                <th>
+                    Study Hours
+                </th>
+
+                <th>
+                    Grade
+                </th>
+
+            </tr>
+
+            {% for student in similar_students %}
+
+            <tr>
+
+                <td>
+                    {{ student['Attendance (%)'] }}
+                </td>
+
+                <td>
+                    {{ student['Study_Hours_per_Week'] }}
+                </td>
+
+                <td>
+                    {{ student['Grade'] }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <!-- INSIGHTS -->
+
+    <div class="card">
+
+        <h2>
+            🧠 Key Insights
+        </h2>
+
+        <ul>
+
+            <li>
+                Similar students generally provide
+                realistic performance expectations.
+            </li>
+
+            <li>
+                Projects and Final Scores contribute
+                the highest impact according to the
+                trained Random Forest model.
+            </li>
+
+            <li>
+                Improving attendance and study hours
+                significantly reduces dropout risk.
+            </li>
+
+            <li>
+                Consistent assignment submission
+                improves grade stability.
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    {% endif %}
+
+
+    <div class="card">
+
+        <a href="/">
+
+            <button>
+
+                🏠 Back To Home
+
+            </button>
+
+        </a>
+
+    </div>
+    <div class="card">
+
+    <a href="/result">
+
+        <button>
+
+            📊 Back To Student Result
+
+        </button>
+
+    </a>
+
+    </div>
+    <div class="card">
+
+<a href="/result">
+
+<button>
+
+📊 Back To Result
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+<footer class="footer">
+
+    <p>
+
+        🎓 Student Performance Prediction System
+
+    </p>
+
+    <p>
+
+        Developed Using Flask, Machine Learning,
+        Scikit-Learn and Data Analytics
+
+    </p>
+
+    <p>
+
+        © 2026 All Rights Reserved
+
+    </p>
+
+</footer>
+
+</html>

@@ -1,0 +1,240 @@
+# ==========================================================
+# DATA CLEANING & PREPROCESSING PIPELINE
+# ==========================================================
+
+import pandas as pd
+import numpy as np
+
+# -----------------------------
+# STEP 1: LOAD DATASET
+# -----------------------------
+
+df = pd.read_csv("../dataset/Students Performance Dataset.csv")
+
+print("="*60)
+print("ORIGINAL DATASET")
+print("="*60)
+
+print("\nShape:", df.shape)
+
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+print("\nDuplicate Records:",
+      df.duplicated().sum())
+
+# -----------------------------
+# STEP 2: CREATE WORKING COPY
+# -----------------------------
+
+clean_df = df.copy()
+
+# -----------------------------
+# STEP 3: REMOVE DUPLICATES
+# -----------------------------
+
+clean_df.drop_duplicates(
+    inplace=True
+)
+
+# -----------------------------
+# STEP 4: HANDLE MISSING VALUES
+# -----------------------------
+
+# Parent Education Level
+
+clean_df[
+    'Parent_Education_Level'
+] = clean_df[
+    'Parent_Education_Level'
+].fillna(
+    clean_df[
+        'Parent_Education_Level'
+    ].mode()[0]
+)
+
+# -----------------------------
+# STEP 5: REMOVE IRRELEVANT
+# COLUMNS
+# -----------------------------
+
+columns_removed = [
+    'Student_ID',
+    'First_Name',
+    'Last_Name',
+    'Email'
+]
+
+clean_df.drop(
+    columns=columns_removed,
+    inplace=True
+)
+
+# -----------------------------
+# STEP 6: REMOVE EXTRA SPACES
+# FROM TEXT COLUMNS
+# -----------------------------
+
+for col in clean_df.select_dtypes(
+    include=['object','string']
+).columns:
+
+    clean_df[col] = (
+        clean_df[col]
+        .astype(str)
+        .str.strip()
+    )
+
+# -----------------------------
+# STEP 7: VERIFY DATA TYPES
+# -----------------------------
+
+print("\nData Types:\n")
+print(clean_df.dtypes)
+
+# -----------------------------
+# STEP 8: FINAL VALIDATION
+# -----------------------------
+
+print("\n" + "="*60)
+print("AFTER CLEANING")
+print("="*60)
+
+print("\nFinal Shape:",
+      clean_df.shape)
+
+print("\nRemaining Missing Values:")
+
+print(
+    clean_df
+    .isnull()
+    .sum()
+)
+
+print("\nDuplicate Records:",
+      clean_df.duplicated().sum())
+
+print("\nColumns Removed:")
+print(columns_removed)
+
+print("\nRemaining Features:")
+
+for col in clean_df.columns:
+    print(col)
+
+print("\nData Cleaning Completed Successfully")
+
+OUTPUT:
+
+============================================================
+ORIGINAL DATASET
+============================================================
+
+Shape: (5000, 23)
+
+Missing Values:
+Student_ID                       0
+First_Name                       0
+Last_Name                        0
+Email                            0
+Gender                           0
+Age                              0
+Department                       0
+Attendance (%)                   0
+Midterm_Score                    0
+Final_Score                      0
+Assignments_Avg                  0
+Quizzes_Avg                      0
+Participation_Score              0
+Projects_Score                   0
+Total_Score                      0
+Grade                            0
+Study_Hours_per_Week             0
+Extracurricular_Activities       0
+Internet_Access_at_Home          0
+Parent_Education_Level        1025
+Family_Income_Level              0
+Stress_Level (1-10)              0
+Sleep_Hours_per_Night            0
+dtype: int64
+
+Duplicate Records: 0
+
+Data Types:
+
+Gender                            str
+Age                             int64
+Department                        str
+Attendance (%)                float64
+Midterm_Score                 float64
+Final_Score                   float64
+Assignments_Avg               float64
+Quizzes_Avg                   float64
+Participation_Score           float64
+Projects_Score                float64
+Total_Score                   float64
+Grade                             str
+Study_Hours_per_Week          float64
+Extracurricular_Activities        str
+Internet_Access_at_Home           str
+Parent_Education_Level            str
+Family_Income_Level               str
+Stress_Level (1-10)             int64
+Sleep_Hours_per_Night         float64
+dtype: object
+
+============================================================
+AFTER CLEANING
+============================================================
+
+Final Shape: (5000, 19)
+
+Remaining Missing Values:
+Gender                        0
+Age                           0
+Department                    0
+Attendance (%)                0
+Midterm_Score                 0
+Final_Score                   0
+Assignments_Avg               0
+Quizzes_Avg                   0
+Participation_Score           0
+Projects_Score                0
+Total_Score                   0
+Grade                         0
+Study_Hours_per_Week          0
+Extracurricular_Activities    0
+Internet_Access_at_Home       0
+Parent_Education_Level        0
+Family_Income_Level           0
+Stress_Level (1-10)           0
+Sleep_Hours_per_Night         0
+dtype: int64
+
+Duplicate Records: 0
+
+Columns Removed:
+['Student_ID', 'First_Name', 'Last_Name', 'Email']
+
+Remaining Features:
+Gender
+Age
+Department
+Attendance (%)
+Midterm_Score
+Final_Score
+Assignments_Avg
+Quizzes_Avg
+Participation_Score
+Projects_Score
+Total_Score
+Grade
+Study_Hours_per_Week
+Extracurricular_Activities
+Internet_Access_at_Home
+Parent_Education_Level
+Family_Income_Level
+Stress_Level (1-10)
+Sleep_Hours_per_Night
+
+Data Cleaning Completed Successfully

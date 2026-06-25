@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Student Performance Analytics System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <h2>
+        🎓 Student Analytics
+    </h2>
+
+    <div>
+
+        <a href="/">Home</a>
+
+        <a href="/comparison">
+            Comparison Dashboard
+        </a>
+
+        <a href="/about">
+            About Project
+        </a>
+
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+
+        <h1>
+            Student Performance Analytics System
+        </h1>
+
+        <p>
+            AI Powered Grade Prediction,
+            Risk Analysis and Personalized
+            Academic Recommendations
+        </p>
+
+    </div>
+
+    <form action="/predict" method="POST">
+
+        <div class="card">
+
+            <h2>👤 Personal Information</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Gender</label>
+                    <select name="Gender">
+                        <option>Female</option>
+                        <option>Male</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Age</label>
+                    <input type="number"
+                           name="Age"
+                           required>
+                </div>
+
+                <div>
+                    <label>Department</label>
+                    <select name="Department">
+                        <option>Business</option>
+                        <option>CS</option>
+                        <option>Engineering</option>
+                        <option>Mathematics</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>📚 Academic Performance</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Attendance (%)</label>
+                    <input type="number"
+                           min="0"
+                           max="100"
+                           name="Attendance"
+                           placeholder="Out of 100"
+                           required>
+                </div>
+
+                <div>
+                    <label>Midterm Score</label>
+                    <input type="number"
+                           min="0"
+                           max="50"
+                           name="Midterm"
+                           placeholder="Out of 50"
+                           required>
+                </div>
+
+                <div>
+                    <label>Final Score</label>
+                    <input type="number"
+                           min="0"
+                           max="100"
+                           name="Final"
+                           placeholder="Out of 100"
+                           required>
+                </div>
+
+                <div>
+                    <label>Assignments Average</label>
+                    <input type="number"
+                           min="0"
+                           max="100"
+                           name="Assignments"
+                           placeholder="Out of 100"
+                           required>
+                </div>
+
+                <div>
+                    <label>Quizzes Average</label>
+                    <input type="number"
+                           min="0"
+                           max="100"
+                           name="Quizzes"
+                           placeholder="Out of 100"
+                           required>
+                </div>
+
+                <div>
+                    <label>Participation Score</label>
+                    <input type="number"
+                           min="0"
+                           max="100"
+                           name="Participation"
+                           placeholder="Out of 100"
+                           required>
+                </div>
+
+                <div>
+                    <label>Projects Score</label>
+                    <input type="number"
+                           min="0"
+                           max="100"
+                           name="Projects"
+                           placeholder="Out of 100"
+                           required>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>📈 Learning Habits</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Study Hours Per Week</label>
+                    <input type="number"
+                           step="0.1"
+                           name="StudyHours"
+                           required>
+                </div>
+
+                <div>
+                    <label>Stress Level (1-10)</label>
+                    <input type="number"
+                           min="1"
+                           max="10"
+                           name="Stress"
+                           required>
+                </div>
+
+                <div>
+                    <label>Sleep Hours Per Night</label>
+                    <input type="number"
+                           step="0.1"
+                           min="0"
+                           max="12"
+                           name="Sleep"
+                           required>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🏠 Resources & Background</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Extracurricular Activities</label>
+                    <select name="Extra">
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Internet Access At Home</label>
+                    <select name="Internet">
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Parent Education Level</label>
+                    <select name="ParentEdu">
+                        <option>Bachelor's</option>
+                        <option>High School</option>
+                        <option>Master's</option>
+                        <option>PhD</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Family Income Level</label>
+                    <select name="Income">
+                        <option>High</option>
+                        <option>Low</option>
+                        <option>Medium</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <button type="submit">
+                🚀 Analyze Student Performance
+            </button>
+
+        </div>
+
+    </form>
+
+    {% if prediction %}
+
+    <div class="card result">
+
+        <h2>🎯 Academic Health Score</h2>
+
+        <h1 class="grade">
+            {{ health_score }}/100
+        </h1>
+
+        <h3>
+            {{ performance_status }}
+        </h3>
+
+    </div>
+    <div class="card result">
+
+    <h2>
+        📋 Student Performance Summary
+    </h2>
+
+    <table class="summary-table">
+
+        <tr>
+            <td>
+                Predicted Grade
+            </td>
+
+            <td>
+                {{ prediction }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Academic Health
+            </td>
+
+            <td>
+                {{ health_score }}/100
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Performance Status
+            </td>
+
+            <td>
+                {{ performance_status }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Strongest Area
+            </td>
+
+            <td>
+                {{ strengths[0] }}
+            </td>
+        </tr>
+
+    </table>
+
+    </div>
+
+    <div class="card">
+
+        <h2>
+            📊 Academic Profile
+        </h2>
+
+        <img
+        src="{{ url_for(
+        'static',
+        filename='student_profile.png'
+        ) }}"
+        width="100%">
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h2>📘 Predicted Grade</h2>
+            <h1 class="grade">{{ prediction }}</h1>
+        </div>
+
+        <div class="card">
+            <h2>⚠ Dropout Risk</h2>
+            <h1 class="risk">{{ risk }}</h1>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>💪 Student Strengths</h2>
+
+        <ul>
+            {% for item in strengths %}
+            <li>✅ {{ item }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="card">
+
+        <h2>
+            ⚠ Risk Factor Analysis
+        </h2>
+
+        <img
+        src="{{ url_for(
+        'static',
+        filename='risk_profile.png'
+        ) }}"
+        width="100%">
+
+    </div>
+
+    <div class="card">
+
+        <h2>
+            📈 Student vs Average
+        </h2>
+
+        <img
+        src="{{ url_for(
+        'static',
+        filename='comparison_chart.png'
+        ) }}"
+        width="100%">
+
+    </div>
+
+    <div class="card">
+
+        <h2>📊 Comparison With Average Student</h2>
+
+        <p>
+            Attendance Difference:
+            <strong>{{ attendance_diff }}%</strong>
+        </p>
+
+        <p>
+            Study Hour Difference:
+            <strong>{{ study_diff }} Hours / Week</strong>
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <a href="/comparison">
+
+            <button>
+                📈 View Detailed Analysis
+            </button>
+        </a>
+
+    </div>
+
+    {% endif %}
+    
+
+
+</div>
+
+</body>
+<footer class="footer">
+
+    <p>
+
+        🎓 Student Performance Prediction System
+
+    </p>
+
+    <p>
+
+        Developed Using Flask, Machine Learning,
+        Scikit-Learn and Data Analytics
+
+    </p>
+
+    <p>
+
+        © 2026 All Rights Reserved
+
+    </p>
+
+</footer>
+
+</html>

@@ -1,0 +1,286 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#f4f7fc;
+    color:#333;
+}
+
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
+    padding:20px;
+}
+
+.hero{
+    text-align:center;
+    padding:40px;
+    border-radius:20px;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+    color:white;
+    margin-bottom:25px;
+    box-shadow:0px 5px 20px rgba(0,0,0,0.15);
+}
+
+.hero h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+label{
+    font-weight:600;
+    color:#1e3a8a;
+}
+
+input,
+select{
+    width:100%;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-top:5px;
+}
+
+input[type="range"]{
+    width:100%;
+}
+
+button{
+    width:100%;
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result{
+    text-align:center;
+}
+
+.grade{
+    font-size:55px;
+    color:#16a34a;
+    font-weight:bold;
+}
+
+.risk{
+    font-size:40px;
+    color:#dc2626;
+    font-weight:bold;
+}
+
+h2{
+    color:#1e3a8a;
+    margin-bottom:15px;
+}
+
+h3{
+    color:#4f46e5;
+}
+
+ul{
+    padding-left:25px;
+}
+
+li{
+    margin-bottom:10px;
+    line-height:1.7;
+}
+
+strong{
+    color:#2563eb;
+    font-size:18px;
+}
+
+.health-meter{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    margin:auto;
+    background:conic-gradient(
+        #16a34a 0deg,
+        #16a34a 300deg,
+        #e5e7eb 300deg
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.health-meter-inner{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.compare-card{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.compare-box{
+    background:#eef2ff;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.compare-box h3{
+    color:#2563eb;
+}
+
+.compare-box p{
+    font-size:22px;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .compare-card{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+}
+.insight-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+.insight-table th{
+    background:#2563eb;
+    color:white;
+    padding:12px;
+}
+
+.insight-table td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+.insight-table tr:nth-child(even){
+    background:#f8fafc;
+}
+.navbar{
+    background:#1e3a8a;
+    color:white;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:600;
+}
+
+.navbar a:hover{
+    color:#93c5fd;
+}
+.summary-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.summary-table td{
+    border-bottom:1px solid #ddd;
+    padding:15px;
+    font-size:18px;
+}
+
+.summary-table td:first-child{
+    font-weight:bold;
+    color:#1e3a8a;
+}
+.footer{
+
+    margin-top:40px;
+
+    background:#1e3a8a;
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+    border-radius:15px 15px 0 0;
+
+}
+
+.footer p{
+
+    margin:5px 0;
+
+    font-size:15px;
+
+}
