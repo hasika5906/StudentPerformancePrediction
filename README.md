@@ -474,19 +474,7 @@ Potential future improvements:
 * Student Login System
 * Advanced Analytics Dashboard
 
----
 
-# 👨‍💻 Developer
-
-Hasika
-
-Department of Computer Science and Engineering
-
-Sri Sairam Engineering College
-
-Academic Year: 2025–2026
-
----
 
 # 📜 License
 
